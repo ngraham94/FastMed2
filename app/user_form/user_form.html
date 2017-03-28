@@ -1,0 +1,63 @@
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNM_D5d6Yjqqps8VAfZd4GTLLQ5MTVvag&libraries=places"></script>
+<div layout="column" flex="100" layout-fill>
+    <md-toolbar class="md-toolbar">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" flex="10" aria-label="Menu" layout-align="center">
+                <i class="material-icons">menu</i>
+            </md-button>
+            <h2 layout-align="center" flex="80">FastMed</h2>
+        </div>
+    </md-toolbar>
+    <div layout=column>
+        <md-content layout="column" layout-padding layout-align="center center">
+            <div layout="row">
+                <md-input-container>
+                    <label>First Name</label>
+                    <input ng-model="user.first_name">
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Last Name</label>
+                    <input ng-model="user.last_name">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container>
+                    <label>Address</label>
+                    <input ng-model="user.address">
+                </md-input-container>
+
+                <md-input-container>
+                    <label>City</label>
+                    <input ng-model="user.city">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container>
+                    <label>State</label>
+                    <input ng-model="user.state">
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Zip Code</label>
+                    <input ng-model="user.zip_code">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container>
+                    <label>Phone Number</label>
+                    <input ng-model="user.phone">
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Symptoms</label>
+                    <input ng-model="user.symptoms">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-button class="md-primary" ng-click="submitForm()">Submit</md-button>
+            </div>
+        </md-content>
+    </div>
+</div>

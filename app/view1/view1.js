@@ -10,15 +10,17 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
         });
     }])
 
-    .controller('View1Ctrl', ['$scope', function ($scope) {
+    .controller('View1Ctrl', ['$scope', '$location', 'sharedContext', function ($scope, $location, sharedContext) {
+
         var map;
         var service;
         var infowindow;
 
+
+
         function miles_to_km(miles) {
             return (miles * 0.62137119);
         }
-
 
         function getLocation() {
             if (navigator.geolocation) {
@@ -27,8 +29,6 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
                 alert("Geolocation is not supported by this browser.");
             }
         }
-
-        getLocation();
 
         $scope.searchCriteria =
         {
@@ -45,20 +45,29 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
             }
 
             service.textSearch(request, callback);
-            alert("Searched!");
         };
 
         function callback(results, status) {
             var marker;
             if (status == google.maps.places.PlacesServiceStatus.OK) {
                 $scope.query_results = results;
-                marker = new google.maps.Marker({
-                    map: map,
-                    draggable: false,
-                    animation: google.maps.Animation.DROP,
-                    position: {lat: 59.327, lng: 18.067}
-                });
-                marker.addListener('click', toggleBounce);
+                for(i=0; i< results.length; i++) {
+                    marker = new google.maps.Marker({
+                        map: map,
+                        draggable: false,
+                        animation: google.maps.Animation.DROP,
+                        position: results[i].geometry.location
+                    });
+                    marker.addListener('click', toggleBounce);
+                }
+            }
+
+            function toggleBounce() {
+                if (marker.getAnimation() !== null) {
+                    marker.setAnimation(null);
+                } else {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
             }
 
             function toggleBounce() {
@@ -80,13 +89,28 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
                 zoom: 15
             });
             service = new google.maps.places.PlacesService(map);
+            sharedContext.setMapService(service);
             console.log("done");
         }
 
-        $scope.viewProfile= function(hospital) {
-            sharedContext.addData("Hospital", hospital);
+        $scope.viewProfile = function(hospital, path) {
+
+            let detailsRequest = {
+                placeId:hospital.place_id
+            };
+            service.getDetails(detailsRequest, setHospital);
+            setTimeout(function () {
+                $location.path(path);
+            }, 200);
+
         }
 
+        function setHospital(place, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                sharedContext.setHospital(place);
+            }
+        }
 
+        getLocation();
 }])
 ;

@@ -11,18 +11,20 @@
     </md-toolbar>
     <div layout="row" flex="10">
         <div flex="10"></div>
-        <md-input-container layout-align="center center" flex="70">
-            <label>Search</label>
-            <input ng-model="searchCriteria.keywords">
-        </md-input-container>
-        <md-button flex="10" class="md-raised" ng-click="searchMaps(searchCriteria)">Search</md-button>
+
     </div>
     <div layout="row">
-        <div flex="10"></div>
-        <div flex="60" id="mapDiv" style="height:500px"></div>
+        <div layout="column" flex="30">
+            <md-input-container layout-align="center center" flex="10">
+                <label>Keyword (Required)</label>
+                <input ng-model="searchCriteria.keywords">
+            </md-input-container>
+            <md-button class="md-primary" flex="5" class="md-raised" ng-click="searchMaps(searchCriteria)">Search</md-button>
+        </div>
+        <div flex="40" id="mapDiv" style="height:700px"></div>
         <div layout="column" flex="30">
             <md-content>
-                <md-card ng-repeat="result in query_results" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-click="viewProfile(result)">
+                <md-card ng-repeat="result in query_results" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
                     <md-card-title>
                         <md-card-title-text>
                             <span class="md-headline">{{result.name}}</span>
@@ -33,7 +35,7 @@
                         </md-card-title-media>
                     </md-card-title>
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button>More Infotmation</md-button>
+                        <md-button ng-click="viewProfile(result, '/hospital_profile')">More Information</md-button>
                     </md-card-actions>
                 </md-card>
             </md-content>

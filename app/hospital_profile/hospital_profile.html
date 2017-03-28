@@ -1,0 +1,49 @@
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNM_D5d6Yjqqps8VAfZd4GTLLQ5MTVvag&libraries=places"></script>
+<div layout="column" flex="100" layout-fill>
+    <md-toolbar class="md-toolbar">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" flex="10" aria-label="Menu" layout-align="center">
+                <i class="material-icons">menu</i>
+            </md-button>
+            <h2 layout-align="center" flex="80">FastMed</h2>
+        </div>
+    </md-toolbar>
+    <div layout=row>
+        <div layout="column" flex="40">
+            <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}"
+                     md-theme-watch>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">{{hospital.name}}</span>
+                        <span class="md-subhead">{{hospital.formatted_address}}</span>
+                        <p>Rating: {{hospital.rating}}<br/>
+                            Phone: {{hospital.formatted_phone_number}}<br/>
+                            <a ng-href="{{hospital.website}}">Website</a></p>
+                    </md-card-title-text>
+                    <md-card-title-media>
+                        <div class="md-media-sm card-media"><img></img></div>
+                    </md-card-title-media>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-primary" ng-click="sendForm()">Check In</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+        <div layout="column" flex="60">
+            <md-content>
+                <h2>Reviews</h2>
+                <div ng-repeat="review in hospital.reviews">
+                    <md-subheader class="md-no-sticky">{{review.author_name}}</md-subheader>
+                    <md-list-item class="md-3-line md-long-text">
+                        <img ng-src="{{review.profile_photo_url}}" class="md-avatar"/>
+                        <div class="md-list-item-text">
+                            <h3>{{review.relative_time_description}}</h3>
+                            <p>{{review.text}}</p>
+                        </div>
+                    </md-list-item>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>

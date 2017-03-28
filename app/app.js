@@ -6,34 +6,42 @@ angular.module('myApp', [
     'myApp.view1',
     'myApp.view2',
     'myApp.hospital_profile',
+    'myApp.user_form',
     'myApp.version',
-    'ngMaterial'
-]).
-config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+    'ngMaterial',
+])
+    .config(['$locationProvider', '$routeProvider', '$mdThemingProvider', function ($locationProvider, $routeProvider, $mdThemingProvider) {
     $locationProvider.hashPrefix('!');
 
-    $routeProvider.otherwise({redirectTo: '/hospital_profile'});
-}]);
+    $routeProvider.otherwise({redirectTo: '/view1'});
+    $mdThemingProvider.theme('default')
+        .primaryPalette('red')
+        .accentPalette('grey');
+}])
 
-myApp.factory("sharedContext", function() {
-    var context = [];
-    var addData = function(key, value) {
-        var data = {
-            key: key,
-            value: value
-        };
-        context.push(data);
+.factory("sharedContext", function() {
+    var hospital = null;
+    var service;
+    var setHospital = function(value) {
+        hospital = value;
     }
-    var getData = function(key) {
-        var data = _.find(context, {
-            key: key
-        });
-        return data;
+    var getHospital = function() {
+        return hospital;
+    }
+
+    var setMapService = function(mapService) {
+        service = mapService;
+    }
+
+    var getMapService = function() {
+        return service;
     }
 
     return {
-        addData: addData,
-        getData: getData
+        setHospital: setHospital,
+        getHospital: getHospital,
+        setMapService: setMapService,
+        getMapService: getMapService
     }
 });
 
