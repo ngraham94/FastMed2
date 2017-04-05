@@ -16,7 +16,9 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
         var service;
         var infowindow;
 
-
+        $scope.randomDistance = function() {
+            return Math.floor(Math.random() * 20);
+        }
 
         function miles_to_km(miles) {
             return (miles * 0.62137119);
