@@ -16,7 +16,7 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
         var service;
         var infowindow;
 
-
+        getLocation();
 
         function miles_to_km(miles) {
             return (miles * 0.62137119);
@@ -25,6 +25,7 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(initialize);
+                console.log("ready");
             } else {
                 alert("Geolocation is not supported by this browser.");
             }
@@ -51,6 +52,7 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
             var marker;
             if (status == google.maps.places.PlacesServiceStatus.OK) {
                 $scope.query_results = results;
+                var i;
                 for(i=0; i< results.length; i++) {
                     marker = new google.maps.Marker({
                         map: map,
@@ -60,6 +62,7 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
                     });
                     marker.addListener('click', toggleBounce);
                 }
+                $scope.$apply();
             }
 
             function toggleBounce() {
@@ -96,21 +99,21 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
         $scope.viewProfile = function(hospital, path) {
 
             let detailsRequest = {
-                placeId:hospital.place_id
+                placeId: hospital.place_id
             };
+            sharedContext.setPath(path);
             service.getDetails(detailsRequest, setHospital);
-            setTimeout(function () {
-                $location.path(path);
-            }, 200);
 
         }
 
         function setHospital(place, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
                 sharedContext.setHospital(place);
+                $scope.$apply();
+                $location.path(sharedContext.getPath())
             }
         }
 
-        getLocation();
+
 }])
 ;

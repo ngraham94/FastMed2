@@ -22,6 +22,8 @@ angular.module('myApp', [
 .factory("sharedContext", function() {
     var hospital = null;
     var service;
+    var path;
+
     var setHospital = function(value) {
         hospital = value;
     }
@@ -37,11 +39,21 @@ angular.module('myApp', [
         return service;
     }
 
+    var getPath = function() {
+        return path;
+    }
+
+    var setPath = function(Path) {
+        path = Path;
+    }
+
     return {
         setHospital: setHospital,
         getHospital: getHospital,
         setMapService: setMapService,
-        getMapService: getMapService
+        getMapService: getMapService,
+        getPath: getPath,
+        setPath: setPath
     }
 });
 

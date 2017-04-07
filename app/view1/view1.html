@@ -1,7 +1,7 @@
 <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNM_D5d6Yjqqps8VAfZd4GTLLQ5MTVvag&libraries=places"></script>
-<div layout="column" flex="100" layout-fill>
-    <md-toolbar class="md-toolbar">
+<div layout="column" flex="100" layout-fill controller="View1Ctrl">
+    <md-toolbar class="md-toolbar" class="md-shadow">
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button" flex="10" aria-label="Menu" layout-align="center">
                 <i class="material-icons">menu</i>
@@ -9,22 +9,37 @@
             <h2 layout-align="center" flex="80">FastMed</h2>
         </div>
     </md-toolbar>
-    <div layout="row" flex="10">
-        <div flex="10"></div>
-
-    </div>
-    <div layout="row">
-        <div layout="column" flex="30">
-            <md-input-container layout-align="center center" flex="10">
+    <div layout="row" layout-padding>
+        <div layout="column" flex="30" class="md-whiteframe-2dp">
+            <md-input-container layout-align="center center" flex="10" layout-padding>
                 <label>Keyword (Required)</label>
                 <input ng-model="searchCriteria.keywords">
             </md-input-container>
-            <md-button class="md-primary" flex="5" class="md-raised" ng-click="searchMaps(searchCriteria)">Search</md-button>
+            <h3>Provider Type</h3>
+            <div layout="column" layout-padding>
+                <md-checkbox layout-align="center start">Primary Care</md-checkbox>
+                <md-checkbox layout-align="center start">Specialist</md-checkbox>
+                <md-checkbox layout-align="center start">Urgent Care</md-checkbox>
+                <md-checkbox layout-align="center start">Emergency</md-checkbox>
+            </div>
+            <div layout="column">
+                <h3>Search Radius</h3>
+                <md-select  class="md-no-underline" ng-model="radius" placeholder="Distance">
+                    <md-option value="5">5 miles</md-option>
+                    <md-option value="10">10 miles</md-option>
+                    <md-option value="15">15 miles</md-option>
+                    <md-option value="25">25 miles</md-option>
+                    <md-option value="50">50 miles</md-option>
+                </md-select>
+            </div>
+            <md-button class="md-primary md-raised" flex="5" class="md-raised" ng-click="searchMaps(searchCriteria)" layout-margin>Search
+            </md-button>
         </div>
         <div flex="40" id="mapDiv" style="height:700px"></div>
-        <div layout="column" flex="30">
+        <div layout="column" flex="30" class="md-whiteframe-2dp">
             <md-content>
-                <md-card ng-repeat="result in query_results" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                <md-card ng-repeat="result in query_results" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}"
+                         md-theme-watch>
                     <md-card-title>
                         <md-card-title-text>
                             <span class="md-headline">{{result.name}}</span>
