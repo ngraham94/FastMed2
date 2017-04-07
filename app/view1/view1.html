@@ -44,15 +44,15 @@
                         <md-card-title-text>
                             <span class="md-headline">{{result.name}}</span>
                             <span class="md-subhead">{{result.formatted_address}}</span>
+                            <div class="md-subhead">{{randomDistance()}} miles</div>
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-sm card-media"><img ng-src="{{result.icon}}"></img></div>
                         </md-card-title-media>
                     </md-card-title>
-                    <md-card-actions layout="row" layout-align="end center">
+                    <md-card-actions layout="row" layout-align="end none">
                         <md-button ng-click="viewProfile(result, '/hospital_profile')">More Information</md-button>
                     </md-card-actions>
-                </md-card>
             </md-content>
         </div>
     </div>

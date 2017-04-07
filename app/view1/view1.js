@@ -17,6 +17,9 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
         var infowindow;
 
         getLocation();
+        $scope.randomDistance = function() {
+            return Math.floor(Math.random() * 20);
+        }
 
         function miles_to_km(miles) {
             return (miles * 0.62137119);
@@ -25,7 +28,6 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(initialize);
-                console.log("ready");
             } else {
                 alert("Geolocation is not supported by this browser.");
             }
