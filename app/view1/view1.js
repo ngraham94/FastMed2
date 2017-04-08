@@ -21,7 +21,7 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
             var card = document.getElementById("item3");
             if (card != null && !adShown) {
                 var img = document.createElement('img');
-                img.src = "http://i.imgur.com/9pQoiZr.jpg";
+                img.src = "http://i.imgur.com/g6SnH6X.jpg";
                 img.style = "width: 100%";
                 document.getElementById("content_list").insertBefore(img, card);
                 adShown = true;
