@@ -23,14 +23,15 @@
         </div>
         <div flex="40" id="mapDiv" style="height:700px"></div>
         <div layout="column" flex="30">
-            <md-content>
-                <md-card ng-repeat="result in query_results" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+            <md-content id="content_list">
+                <md-card ng-repeat="result in query_results" id="item{{$index}}" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
                     <md-card-title>
                         <md-card-title-text>
                             <span class="md-headline">{{result.name}}</span>
                             <span class="md-subhead">{{result.formatted_address}}</span>
                             <span class="md-subhead">{{randomDistance()}} miles</span>
                             <span class="md-subhead">Wait: {{randomDistance()}} minutes</span>
+                            {{addAd()}}
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-sm card-media"><img ng-src="{{result.icon}}"></img></div>
@@ -44,4 +45,11 @@
         </div>
     </div>
 </div>
+
+<script>
+var img = createElement('img');
+img.src = "http://i.imgur.com/9pQoiZr.jpg";
+getElementById("content_list").insertBefore(img, getElementById("item2"));
+</script>
+
 <script>google.maps.event.trigger(map, 'resize');</script>
