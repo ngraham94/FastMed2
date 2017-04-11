@@ -23,6 +23,7 @@ angular.module('myApp', [
     var hospital = null;
     var service;
     var path;
+    var results;
 
     var setHospital = function(value) {
         hospital = value;
@@ -47,13 +48,23 @@ angular.module('myApp', [
         path = Path;
     }
 
+    var getResults = function() {
+        return results;
+    }
+
+    var setResults = function(Results) {
+        results = Results;
+    }
+
     return {
         setHospital: setHospital,
         getHospital: getHospital,
         setMapService: setMapService,
         getMapService: getMapService,
         getPath: getPath,
-        setPath: setPath
+        setPath: setPath,
+        getResults: getResults,
+        setResults: setResults
     }
 });
 

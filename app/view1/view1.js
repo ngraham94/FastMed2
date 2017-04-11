@@ -13,11 +13,14 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
     .controller('View1Ctrl', ['$scope', '$location', 'sharedContext', function ($scope, $location, sharedContext) {
 
         var map;
+        var home
         var service;
         var infowindow;
 
+        $scope.query_results = sharedContext.getResults();
+
         getLocation();
-        $scope.randomDistance = function() {
+        function randomDistance() {
             return Math.floor(Math.random() * 20);
         }
 
@@ -35,18 +38,19 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
 
         $scope.searchCriteria =
         {
-            location: null,
-            searchDistance: null,
             keywords: null
         };
 
         $scope.searchMaps = function (searchCriteria) {
             var request = {
                 query: searchCriteria.keywords,
-                location: searchCriteria.location,
-                radius: '10000'
+                location: home,
+                radius: miles_to_km($scope.radius),
+                type: 'hospital'
             }
-
+            if($scope.type == "pc" || $scope.type == "sp") {
+                request.type = 'doctor';
+            }
             service.textSearch(request, callback);
         };
 
@@ -54,6 +58,7 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
             var marker;
             if (status == google.maps.places.PlacesServiceStatus.OK) {
                 $scope.query_results = results;
+                sharedContext.setResults(results);
                 var i;
                 for(i=0; i< results.length; i++) {
                     marker = new google.maps.Marker({
@@ -63,6 +68,7 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
                         position: results[i].geometry.location
                     });
                     marker.addListener('click', toggleBounce);
+                    results[i].distance = randomDistance();
                 }
                 $scope.$apply();
             }
@@ -85,7 +91,7 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
         }
 
         function initialize(position) {
-            var home = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            home = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             $scope.searchCriteria.location = home;
 
 

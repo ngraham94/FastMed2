@@ -17,10 +17,16 @@
             </md-input-container>
             <h3>Provider Type</h3>
             <div layout="column" layout-padding>
-                <md-checkbox layout-align="center start">Primary Care</md-checkbox>
-                <md-checkbox layout-align="center start">Specialist</md-checkbox>
-                <md-checkbox layout-align="center start">Urgent Care</md-checkbox>
-                <md-checkbox layout-align="center start">Emergency</md-checkbox>
+                <md-radio-group ng-model="data.group1">
+
+                    <md-radio-button value="pc" layout-align="center start">Primary Care</md-radio-button>
+                    <md-radio-button value="sp" layout-align="center start">Specialist</md-radio-button>
+                    <md-radio-button value="uc" layout-align="center start">Urgent Care</md-radio-button>
+                    <md-radio-button value="em" layout-align="center start">Emergency</md-radio-button>
+
+                </md-radio-group>
+
+
             </div>
             <div layout="column">
                 <h3>Search Radius</h3>
@@ -44,8 +50,7 @@
                         <md-card-title-text>
                             <span class="md-headline">{{result.name}}</span>
                             <span class="md-subhead">{{result.formatted_address}}</span>
-                            <span class="md-subhead">{{randomDistance()}} miles</span>
-                            <span class="md-subhead">Wait: {{randomDistance()}} minutes</span>
+                            <span class="md-subhead">Wait: {{result.distance}} minutes</span>
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-sm card-media"><img ng-src="{{result.icon}}"></img></div>

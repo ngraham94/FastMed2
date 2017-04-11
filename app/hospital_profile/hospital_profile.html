@@ -26,8 +26,17 @@
                     </md-card-title-media>
                 </md-card-title>
                 <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-primary" ng-click="sendForm()">Check In</md-button>
+                    <md-button class="md-primary" ng-click="showDialog(e)">Check In</md-button>
                 </md-card-actions>
+            </md-card>
+            <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}"
+                     md-theme-watch>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Hospital Photo</span>
+                        <div class="md-media-sm card-media"><img src="{{hospital.photos[0].getUrl({'maxWidth': 200, 'maxHeight': 200})}}"></img></div>
+                    </md-card-title-media>
+                </md-card-title>
             </md-card>
         </div>
         <div layout="column" flex="60">
