@@ -19,8 +19,7 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
         var adShown = false;
 
         $scope.query_results = sharedContext.getResults();
-        
-        $scope.addAd = function() {
+        function addAd() {
             var card = document.getElementById("item3");
             if (card != null && !adShown) {
                 var img = document.createElement('img');
@@ -33,7 +32,7 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
 
         getLocation();
 
-        $scope.randomDistance = function() {
+        function randomDistance() {
             return Math.floor(Math.random() * 20);
         }
 
@@ -84,6 +83,7 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
                     results[i].distance = randomDistance();
                 }
                 $scope.$apply();
+                addAd();
             }
 
             function toggleBounce() {
