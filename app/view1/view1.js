@@ -19,6 +19,7 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
         var adShown = false;
 
         $scope.query_results = sharedContext.getResults();
+        
         $scope.addAd = function() {
             var card = document.getElementById("item3");
             if (card != null && !adShown) {
@@ -31,7 +32,8 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
         }
 
         getLocation();
-        function randomDistance() {
+
+        $scope.randomDistance = function() {
             return Math.floor(Math.random() * 20);
         }
 
