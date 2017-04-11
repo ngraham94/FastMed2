@@ -16,8 +16,19 @@ angular.module('myApp.view1', ['ngRoute', 'ngMaterial'])
         var home
         var service;
         var infowindow;
+        var adShown = false;
 
         $scope.query_results = sharedContext.getResults();
+        $scope.addAd = function() {
+            var card = document.getElementById("item3");
+            if (card != null && !adShown) {
+                var img = document.createElement('img');
+                img.src = "http://i.imgur.com/g6SnH6X.jpg";
+                img.style = "width: 100%";
+                document.getElementById("content_list").insertBefore(img, card);
+                adShown = true;
+            }
+        }
 
         getLocation();
         function randomDistance() {
